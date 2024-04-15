@@ -1,12 +1,26 @@
 <script>
+import { ref } from "vue";
+
+export default {
+  data() {
+    return {
+      email: ref(''),
+      password: ref('')
+    }
+  },
+}
 
 </script>
 
 <template>
   <form>
     <label>Email</label>
-    <input type="email" required>
+    <input type="email" required v-model="email">
+    <label>Password</label>
+    <input type="password" required v-model="password">
   </form>
+  <p>Email: {{email}}</p>
+  <p>Password: {{password}}</p>
 </template>
 
 <style>
