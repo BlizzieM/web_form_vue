@@ -8,9 +8,26 @@ export default {
       password: ref(''),
       role: ref(''),
       accept: ref(false),
-      aqours: ref([])
+      //aqours: ref([])
+      tempSkill: ref(''),
+      skill: ref([])
     }
   },
+  methods: {
+    addSkill(e) {
+      //e is supplied automatically since it is tied to the @keyup event
+      if(e.key === ',' && this.tempSkill)
+      {
+        this.skill.push(this.tempSkill);
+        this.tempSkill = '';
+      }
+      else
+      {
+        this.tempSkill = this.tempSkill.concat(e.key)
+      }
+
+    }
+  }
 }
 
 </script>
@@ -28,11 +45,14 @@ export default {
       <option>Project Manager</option>
       <option>Other</option>
     </select>
+
+    <label>Skills:</label>
+    <input type="text" v-model="tempSkill" @keyup="addSkill">
     <p>
     <input type="checkbox" v-model="accept"/>
     <label>Accept terms and conditions</label>
     </p>
-
+<!--
     <p>Choose your favorite Aqours member:</p>
     <p>
     <input type="checkbox" value="Chika" v-model="aqours">
@@ -55,12 +75,15 @@ export default {
     <label>Ruby</label>
 
     </p>
-
+-->
   <p>Email: {{email}}</p>
   <p>Password: {{password}}</p>
   <p>Role: {{role}}</p>
   <p>Accept: {{accept}}</p>
-  <p>Aqours: {{aqours}}</p>
+    <p>Skill: {{skill}}</p>
+    <p>TempSkill: {{tempSkill}}</p>
+
+    <!--<p>Aqours: {{aqours}}</p> -->
   </form>
 </template>
 
