@@ -10,22 +10,25 @@ export default {
       accept: ref(false),
       //aqours: ref([])
       tempSkill: ref(''),
-      skill: ref([])
+      skills: ref([])
     }
   },
   methods: {
     addSkill(e) {
+      console.log(e);
       //e is supplied automatically since it is tied to the @keyup event
       if(e.key === ',' && this.tempSkill)
       {
-        this.skill.push(this.tempSkill);
+        //checks for possible dublicate skills and wont add it
+        if(!this.skills.includes(this.tempSkill))
+        {
+          this.tempSkill = this.tempSkill.slice(0, -1);
+          this.skills.push(this.tempSkill);
+
+        }
         this.tempSkill = '';
       }
-      else
-      {
-        this.tempSkill = this.tempSkill.concat(e.key)
-      }
-
+      //no need to use anything else to complicate things
     }
   }
 }
@@ -48,6 +51,10 @@ export default {
 
     <label>Skills:</label>
     <input type="text" v-model="tempSkill" @keyup="addSkill">
+    <div v-for="skill in skills" :key="skill" class="pill">
+      {{skill}}
+    </div>
+
     <p>
     <input type="checkbox" v-model="accept"/>
     <label>Accept terms and conditions</label>
@@ -80,7 +87,7 @@ export default {
   <p>Password: {{password}}</p>
   <p>Role: {{role}}</p>
   <p>Accept: {{accept}}</p>
-    <p>Skill: {{skill}}</p>
+    <p>Skills: {{skills}}</p>
     <p>TempSkill: {{tempSkill}}</p>
 
     <!--<p>Aqours: {{aqours}}</p> -->
