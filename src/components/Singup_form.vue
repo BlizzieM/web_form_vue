@@ -10,7 +10,8 @@ export default {
       accept: ref(false),
       //aqours: ref([])
       tempSkill: ref(''),
-      skills: ref([])
+      skills: ref([]),
+      passwordError: ref('')
     }
   },
   methods: {
@@ -36,6 +37,7 @@ export default {
     },
     handleSubmit() {
       console.log("Form Submitted");
+      this.passwordError = this.password.length > 5 ? '' : 'Password must be at least 6 characters long';
     }
   }
 }
@@ -48,6 +50,7 @@ export default {
     <input type="email" required v-model="email">
     <label>Password</label>
     <input type="password" required v-model="password">
+    <div v-if = "passwordError" class="error">{{passwordError}}</div>
     <label>Role</label>
     <select v-model="role">
       <option>Web Developer</option>
